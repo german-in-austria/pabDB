@@ -57,7 +57,7 @@ class tbl_antworten(models.Model):
 	downstep			= models.BooleanField(				blank=True, null=False									, verbose_name="Downstep")
 	Kommentar			= models.CharField(max_length=511,	blank=True, null=True									, verbose_name="Kommentar")
 	def __str__(self):
-		return "{}, {}".format(self.von_Inf,self.ist_satz)
+		return "{}, {}".format(self.von_inf,self.ist_satz)
 	class Meta:
 		verbose_name = "Antwort"
 		verbose_name_plural = "Antworten"
