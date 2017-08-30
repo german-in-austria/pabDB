@@ -47,6 +47,7 @@ class tbl_orte(models.Model):
 		permissions = (('edit', 'Kann Orte in DB bearbeiten'),('pab_maskView', 'Kann Maskeneingaben einsehen'),('pab_maskAdd', 'Kann Maskeneingaben hinzufügen'),('pab_maskEdit', 'Kann Maskeneingaben bearbeiten'),)
 
 class tbl_antworten(models.Model):
+	gesp_in_dateiname	=models.CharField(max_length=45																, verbose_name="Gespeichert in Dateiname")
 	von_inf				= models.ForeignKey('tbl_informanten'						, on_delete=models.CASCADE		, verbose_name="von Person")
 	ist_satz			= models.ForeignKey('tbl_saetze',	blank=True, null=True	, on_delete=models.SET_NULL		, verbose_name="Ist Satz")
 	reihung				= models.IntegerField(				blank=True, null=True									, verbose_name="Reihung")
