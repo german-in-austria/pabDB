@@ -80,7 +80,7 @@ class tbl_saetze(models.Model):
 	vokal				= models.CharField(max_length=45,			blank=True, null=True							, verbose_name="Vokal")
 	konsonant2			= models.CharField(max_length=45,			blank=True, null=True							, verbose_name="2. Konsonant")
 	def __str__(self):
-		return "{}, {} ({})".format(self.satz_nr,self.standardorth,self.Kommentar)
+		return "{}, {} ({})".format(self.satz_nr,self.standardorth,self.kommentar)
 	class Meta:
 		verbose_name = "Satz"
 		verbose_name_plural = "Sätze"
