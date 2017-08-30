@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # DIOEDB_PRIVATE_STORAGE_SERVER = 'nginx'					(Default: 'django')									#
 # DIOEDB_PRIVATE_STORAGE_INTERNAL_URL = '/private-x-accel-redirect/'											#
 # Datenbank:																									#
-# PABDB_DB="django.db.backends.postgresql"					(Default: "django.db.backends.sqlite3")				#
+# PABDB_DB="django.db.backends.postgresql_psycopg2"			(Default: "django.db.backends.sqlite3")				#
 # PABDB_DB_NAME="PersonenDB"								(Default: os.path.join(BASE_DIR, 'db.sqlite3'))		#
 # PABDB_DB_USER="user"										(Default: None)										#
 # PABDB_DB_PASSWORD="passwort"								(Default: None)										#

@@ -72,6 +72,7 @@ class tbl_saetze(models.Model):
 	kommentar			= models.CharField(max_length=511,			blank=True, null=True							, verbose_name="Kommentar")
 	silbenstruktur_erw	= models.CharField(max_length=45,			blank=True, null=True							, verbose_name="erwartete Silbenstruktur")
 	laenge_nukl_wort	= models.IntegerField(						blank=True, null=True							, verbose_name="Länge des Wortknukleus")
+	laenge_nukl_fuss	= models.IntegerField(						blank=True, null=True							, verbose_name="Länge des Fußknukleus")
 	abstand_phrasengrenze=models.IntegerField(						blank=True, null=True							, verbose_name="Abstand Phrasengrenze")
 	fokus				= models.IntegerField(						blank=True, null=True							, verbose_name="Fokus")
 	konsonant1			= models.CharField(max_length=45,			blank=True, null=True							, verbose_name="1. Konsonant")
@@ -89,7 +90,7 @@ class tbl_saetze(models.Model):
 class tbl_messung(models.Model):
 	zu_antwort			= models.ForeignKey('tbl_antworten',		blank=False, null=False 						, verbose_name="zu Antwort")
 	ist_kategorie		= models.ForeignKey('tbl_kategorien',		blank=False, null=False 						, verbose_name="ist kategorie")
-	wert				= models.IntegerField(						blank=False, null=False							,verbose_name="Messwert")
+	wert				= models.IntegerField(						blank=False, null=False							, verbose_name="Messwert")
 	def __str__(self):
 		return "{}, {}".format(self.ist_kategorie,self.zu_antwort)
 	class Meta:
@@ -99,8 +100,8 @@ class tbl_messung(models.Model):
 		ordering = ('ist_kategorie',)
 
 class tbl_kategorien(models.Model):
-	bezeichnung			= models.CharField(max_length=45,			blank=False, null=False							,verbose_name="Bezeichnung")
-	einheit				= models.CharField(max_length=45,			blank=False, null=False							,verbose_name="Einheit")
+	bezeichnung			= models.CharField(max_length=45,			blank=False, null=False							, verbose_name="Bezeichnung")
+	einheit				= models.CharField(max_length=45,			blank=False, null=False							, verbose_name="Einheit")
 	def __str__(self):
 		return "{}".format(self.bezeichnung)
 	class Meta:
