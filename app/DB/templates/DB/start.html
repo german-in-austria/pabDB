@@ -1,0 +1,34 @@
+{% extends 'main/basis.html' %}
+{% load staticfiles %}
+{% block title %} - Übersicht aller Tabellen in der PersonenDB{% endblock %}
+{% block ueberschrift %} - Übersicht aller Tabellen in der PersonenDB{% endblock %}
+{% block inhalt %}
+
+<h2>Übersicht aller Tabellen</h2>
+{% if info %}<div class="alert alert-info">{{ info|safe }}</div>{% endif %}
+{% if error %}<div class="alert alert-danger">{{ error|safe }}</div>{% endif %}
+<br>
+
+<div class="row">
+{% for key, tabelle in tabellen %}
+	<div class="col-md-3">
+  	<p><b>{{ key }}</b></p>
+		{% for eintrag in tabelle %}
+			<div class="input-group mib5">
+				<a href="view/{{ key }}/{{ eintrag.model }}" class="form-control btn btn-primary mib5 w100 fx-btn-badge">{{ eintrag.titel }} <span class="badge">{{ eintrag.count }}</span></a>
+				<a href="resetidseq/{{ key }}/{{ eintrag.model }}" class="btn input-group-addon btn-primary resetidseq" title="Update der 'id_seq'!"><span class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span></a>
+			</div>
+			{% endfor %}
+	</div>
+{% endfor %}
+</div>
+
+
+
+{% endblock %}
+{% block sitejs %}
+<script>
+	var csrf='{{ csrf_token }}';
+</script>
+<script src="{% static "db/js/resetidseq.js" %}"></script>
+{% endblock %}

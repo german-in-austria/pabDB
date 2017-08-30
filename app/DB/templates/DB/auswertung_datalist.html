@@ -1,0 +1,70 @@
+{% load dioeTags %}
+{% if not getdatalist %}<div id="liste-auswertung">{% endif %}
+	<div id="data-auswertung" data-seite="{{ aauswertung.aktuelleseite }}" data-orderby="{% if aauswertung.aOrderbyD == 'desc' %}-{% endif %}{{ aauswertung.aOrderby }}"></div>
+	<div class="row">
+		<div class="col-md-8"><h4>Vorschau:</h4>Elemente: {{ aauswertung.count }} / {{ aauswertung.allcount }}</div>
+		<div class="col-md-4 text-right">Download: <a href="#" id="download-auswertung" class="btn btn-default" data-type="csv">CSV</a> <a href="#" id="download-auswertung" class="btn btn-primary" data-type="xls">XLS</a></div>
+	</div>
+	<br>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover" style="margin-bottom: 0px;">
+	      <thead class="table-nowrap">
+	        <tr>
+						<th><a href="#" class="order-col-auswertung" data-orderby="" title="Standard Sortierung">#</a></th>
+						{% for afeld in aauswertung.felder %}
+	          	<th>
+								{% if afeld in aauswertung.orderby %}
+									<a href="#" class="order-col-auswertung" data-orderby="{% if afeld == aauswertung.aOrderby and aauswertung.aOrderbyD == 'asc' %}-{% endif %}{{ afeld }}">{{ afeld }}
+										{% if afeld == aauswertung.aOrderby %}
+											{% if aauswertung.aOrderbyD == 'asc' %}<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>{% endif %}
+											{% if aauswertung.aOrderbyD == 'desc' %}<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>{% endif %}
+										{% endif %}
+									</a>
+								{% else %}
+									{{ afeld }}
+								{% endif %}
+							</th>
+						{% endfor %}
+	        </tr>
+	      </thead>
+	      <tbody>
+					{% for adaten in aauswertung.daten %}
+	        <tr>
+						<th scope="row">{{ forloop.counter|add:aauswertung.seitenstart }}</th>
+						{% for afeld in adaten %}
+	          	<td>{{ afeld|linebreaksbr }}</td>
+							{% endfor %}
+	        </tr>
+					{% endfor %}
+	      </tbody>
+	    </table>
+		</div>
+		<br>
+		<div id="seiten-auswertung" class="text-right">
+			{% if aauswertung.seiten < 21 %}
+				{% with ''|rjust:aauswertung.seiten as range %}
+				{% for _ in range %}
+					<a href="#" data-seite="{{ forloop.counter|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == forloop.counter %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ forloop.counter }}</a>
+				{% endfor %}
+				{% endwith %}
+			{% else %}
+				<a href="#" data-seite="1" class="btn {% if aauswertung.aktuelleseite == 1 %}btn-primary{% else %}btn-default{% endif %} btn-xs">1</a>
+				<a href="#" data-seite="2" class="btn {% if aauswertung.aktuelleseite == 2 %}btn-primary{% else %}btn-default{% endif %} btn-xs">2</a>
+				<a href="#" data-seite="3" class="btn {% if aauswertung.aktuelleseite == 3 %}btn-primary{% else %}btn-default{% endif %} btn-xs">3</a>
+				{% if aauswertung.aktuelleseite == 3 %}<a href="#" data-seite="4" class="btn {% if aauswertung.aktuelleseite == 4 %}btn-primary{% else %}btn-default{% endif %} btn-xs">4</a>{% endif %}
+				{% if aauswertung.aktuelleseite == 4 %}<a href="#" data-seite="4" class="btn {% if aauswertung.aktuelleseite == 4 %}btn-primary{% else %}btn-default{% endif %} btn-xs">4</a> <a href="#" data-seite="5" class="btn {% if aauswertung.aktuelleseite == 5 %}btn-primary{% else %}btn-default{% endif %} btn-xs">5</a>{% endif %}
+				{% if not aauswertung.aktuelleseite == 5 %}...{% endif %}
+				{% if aauswertung.aktuelleseite > 4 and aauswertung.aktuelleseite < aauswertung.seiten|add:"-3" %}
+					<a href="#" data-seite="{{ aauswertung.aktuelleseite|add:"-1"|stringformat:'i' }}" class="btn btn-default btn-xs">{{ aauswertung.aktuelleseite|add:"-1" }}</a>
+					<a href="#" data-seite="{{ aauswertung.aktuelleseite|stringformat:'i' }}" class="btn btn-primary btn-xs">{{ aauswertung.aktuelleseite }}</a>
+					<a href="#" data-seite="{{ aauswertung.aktuelleseite|add:"1"|stringformat:'i' }}" class="btn btn-default btn-xs">{{ aauswertung.aktuelleseite|add:"1" }}</a>
+					{% if not aauswertung.aktuelleseite == aauswertung.seiten|add:"-4" %}...{% endif %}
+				{% endif %}
+				{% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-3" %}<a href="#" data-seite="{{ aauswertung.seiten|add:"-4"|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-4" %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten|add:"-4" }}</a> <a href="#" data-seite="{{ aauswertung.seiten|add:"-3"|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-3" %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten|add:"-3" }}</a>{% endif %}
+				{% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-2" %}<a href="#" data-seite="{{ aauswertung.seiten|add:"-3"|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-3" %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten|add:"-3" }}</a>{% endif %}
+				<a href="#" data-seite="{{ aauswertung.seiten|add:"-2"|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-2" %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten|add:"-2" }}</a>
+				<a href="#" data-seite="{{ aauswertung.seiten|add:"-1"|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten|add:"-1" %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten|add:"-1" }}</a>
+				<a href="#" data-seite="{{ aauswertung.seiten|stringformat:'i' }}" class="btn {% if aauswertung.aktuelleseite == aauswertung.seiten %}btn-primary{% else %}btn-default{% endif %} btn-xs">{{ aauswertung.seiten }}</a>
+			{% endif %}
+		</div>
+{% if not getdatalist %}</div>{% endif %}
