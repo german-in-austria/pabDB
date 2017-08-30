@@ -133,20 +133,21 @@ function setMaps() {
 }
 $(document).on('click', '#osmDatensatzErstellen:not(.loading)', function(e) {
   e.preventDefault()
-  aData = $('#osmDatensatzErstellen')
-  $('#osmDatensatzErstellen').addClass('loading')
-  $.post(viewurl+'PersonenDB/tbl_orte', { csrfmiddlewaretoken: csrf, savepk: 0, saveform: 1, osm_id: aData.data('osm-id'), osm_type: aData.data('osm-type'), ort_namelang: aData.data('ort-namelang'), lat: aData.data('lat'), lon: aData.data('lon') } , function(d) {
-    var newOrtPK = $('<div>'+d+'</div>').find('.editobj').data('obj-pk')
-    aData = $('#osmDatensatzErstellen')
-    $('#osm'+aData.data('osm-id')+aData.data('osm-type')).data('OrtPK',newOrtPK).addClass('indatenbank')
-    getOsmDatenbankEintrag(newOrtPK,aData.data('ort-namelang'),aData.data('osm-id'),aData.data('osm-type'))
-    console.log('saveobj - Ort - '+newOrtPK)
-    setMaps()
-  }).fail(function(d) {
-    alert( "error" )
-    $('#osmDatensatzErstellen').removeClass('loading')
-    console.log(d)
-  })
+	alert( "OSM einbauen!" )
+  // aData = $('#osmDatensatzErstellen')
+  // $('#osmDatensatzErstellen').addClass('loading')
+  // $.post(viewurl+'PersonenDB/tbl_orte', { csrfmiddlewaretoken: csrf, savepk: 0, saveform: 1, osm_id: aData.data('osm-id'), osm_type: aData.data('osm-type'), ort_namelang: aData.data('ort-namelang'), lat: aData.data('lat'), lon: aData.data('lon') } , function(d) {
+  //   var newOrtPK = $('<div>'+d+'</div>').find('.editobj').data('obj-pk')
+  //   aData = $('#osmDatensatzErstellen')
+  //   $('#osm'+aData.data('osm-id')+aData.data('osm-type')).data('OrtPK',newOrtPK).addClass('indatenbank')
+  //   getOsmDatenbankEintrag(newOrtPK,aData.data('ort-namelang'),aData.data('osm-id'),aData.data('osm-type'))
+  //   console.log('saveobj - Ort - '+newOrtPK)
+  //   setMaps()
+  // }).fail(function(d) {
+  //   alert( "error" )
+  //   $('#osmDatensatzErstellen').removeClass('loading')
+  //   console.log(d)
+  // })
 })
 function onSelobjOsmModal(athis) {											/* Modal mit OpenStreetMap Select laden */
   $('.seleobj,.seleobjosm').removeClass('lsel')

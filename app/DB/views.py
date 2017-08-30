@@ -171,22 +171,21 @@ def search(request):
 
 	# Nach OpenStreetMap Orten in der tbl_orte suchen ...
 	if 'sucheorte' in request.POST:
-		# suchorte = json.loads(request.POST.get('suchorte'))
-		# ortModel = apps.get_model('PersonenDB', 'tbl_orte')
-		# for suchort in suchorte:
-		# 	print(suchort['osm_id']+' - '+suchort['osm_type'])
-		# 	try:
-		# 		ortObjekt = ortModel.objects.filter(osm_id=suchort['osm_id'],osm_type=suchort['osm_type']).order_by('pk').first()
-		# 		suchort['ort_pk'] = ortObjekt.pk
-		# 	except:
-		# 		pass
-		# return httpOutput('OK'+json.dumps(suchorte))
-		return httpOutput('Error: Keine "tbl_orte"!')
+		suchorte = json.loads(request.POST.get('suchorte'))
+		ortModel = apps.get_model('pab', 'tbl_orte')
+		for suchort in suchorte:
+			print(suchort['osm_id']+' - '+suchort['osm_type'])
+			try:
+				ortObjekt = ortModel.objects.filter(osm_id=suchort['osm_id'],osm_type=suchort['osm_type']).order_by('pk').first()
+				suchort['ort_pk'] = ortObjekt.pk
+			except:
+				pass
+		return httpOutput('OK'+json.dumps(suchorte))
 
 	# Nach Ort in der tbl_orte suchen und als Json ausgeben
 	if 'getort' in request.POST:
 		ortData = {}
-		# ortModel = apps.get_model('PersonenDB', 'tbl_orte')
+		ortModel = apps.get_model('pab', 'tbl_orte')
 		try:
 			ortObjekt = ortModel.objects.get(pk=request.POST.get('getort'))
 			ortData['pk'] = ortObjekt.pk

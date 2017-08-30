@@ -61,7 +61,7 @@ ALLOWED_SETTINGS_IN_TEMPLATES = ("AUDIO_URL","CACH_RANDOM")
 
 CACH_RANDOM = ''.join(random.SystemRandom().choice(string.ascii_lowercase+string.digits) for i in range(8))
 
-DIOEDB_APPLIST = [] # ['PersonenDB','KorpusDB']
+DIOEDB_APPLIST = ['pab'] # ['PersonenDB','KorpusDB']
 DIOEDB_MAXVERWEISE = 50
 
 # Application definition
@@ -77,6 +77,7 @@ INSTALLED_APPS = (
 	'private_storage',
 	'Startseite',
 	'DB',
+	'pab',
 )
 
 MIDDLEWARE_CLASSES = (
