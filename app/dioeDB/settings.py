@@ -124,6 +124,9 @@ DATABASES = {
 }
 
 # Umgebungsvariablen:
+if 'DIOEDB_SECRET_KEY' in os.environ:
+	SECRET_KEY = os.environ['DIOEDB_SECRET_KEY']
+
 if 'PABDB_DB' in os.environ and os.environ['PABDB_DB']:
 	DATABASES['default']['ENGINE'] = os.environ['PABDB_DB']
 	if 'PABDB_DB_NAME' in os.environ:
